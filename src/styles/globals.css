@@ -1,0 +1,124 @@
+/*
+ * Mellon design tokens — light mode only for the MVP.
+ *
+ * Contrast (verified by src/styles/tokens.test.ts against WCAG 2.2):
+ *   ink / canvas ....... 14.4:1   ink / surface ....... 14.6:1
+ *   ink-muted / canvas .. 5.4:1   ink-muted / surface .. 5.8:1
+ *   ink-faint / canvas .. 4.6:1   ink-faint / surface .. 5.0:1
+ *   accent-strong / surface ... 6.0:1   accent-strong / accent-wash .. 5.0:1
+ *   success / surface .... 6.1:1   warning / surface ... 6.0:1   danger / surface .. 5.9:1
+ *   accent / surface ..... 3.4:1  (non-text signal only: markers, borders, icons)
+ *
+ * Text uses ink / ink-muted / accent-strong. `accent` is a signal, never small
+ * white-on-orange text, and never the sole carrier of status (color is always
+ * paired with a label or icon).
+ */
+:root {
+  --canvas: #f7f6f2;
+  --surface: #ffffff;
+  --surface-subtle: #f1f0eb;
+  --surface-hover: #f8e9e2;
+  --ink: #252421;
+  --ink-muted: #67655f;
+  --ink-faint: #72706a;
+  --line: #e7e5df;
+  --line-strong: #d4d1c8;
+  --accent: #d96b4c;
+  --accent-strong: #a8432b;
+  --accent-wash: #f8e8e1;
+  --success: #3f6b52;
+  --warning: #855b21;
+  --danger: #a5473e;
+  --focus-ring: #9e422c;
+
+  /* Local/system sans stack — no network font dependency for core rendering. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --duration-control: 150ms;
+  --duration-panel: 240ms;
+  --duration-growth: 480ms;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 21px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular numerals for timers and numeric metrics. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Visible keyboard focus everywhere. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -100px;
+  z-index: 60;
+  padding: 8px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+/* Reduced motion: remove nonessential animation globally. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Explicit in-app override mirrors the media query. */
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+@keyframes mellon-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: mellon-fade-in var(--duration-panel) ease-out both;
+}
