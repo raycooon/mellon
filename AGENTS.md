@@ -46,7 +46,13 @@ npm run lint         # ESLint (next lint)
 npm run typecheck    # tsc --noEmit
 npm test             # Vitest (single run)
 npm run test:watch   # Vitest (watch mode)
+npm run verify:shell # real-browser shell check (needs `npm run build` first)
 ```
+
+`npm run verify:shell` drives the locally installed Chrome over the DevTools Protocol to check
+responsive layout, overflow, navigation, and dialog focus. It needs a production build and Google
+Chrome; set `CHROME_PATH` if Chrome is not in the default location. It is dependency-free — do not
+replace it with a browser-automation package.
 
 Run `typecheck`, `lint`, `test`, and `build` before declaring a phase done. Report the exact
 commands run and their results. Fix failures you introduced; report pre-existing failures separately.

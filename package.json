@@ -10,7 +10,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "verify:shell": "node scripts/verify-shell.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.1",
